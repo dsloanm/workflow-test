@@ -5,4 +5,15 @@ jobs:
   ci:
     uses: dsloanm/.github-experiments/.github/workflows/ci.yaml@main
     with:
-      setup-commands: sudo snap install astral-uv --classic --channel latest/stable
+      setup-commands: &setup_cmds |
+        sudo snap install astral-uv --classic --channel latest/stable
+        sudo snap install charmcraft --classic --channel latest/stable
+      
+  unit-test:
+    name: Unit tests
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dsloanm/.github-experiments/.github/actions/setup-just@main
+      - run: *setup_cmds
+      - run: just unit
