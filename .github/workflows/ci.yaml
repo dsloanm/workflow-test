@@ -1,0 +1,8 @@
+name: CI
+on: [pull_request]
+
+jobs:
+  ci:
+    uses: dsloanm/.github-experiments/.github/workflows/ci.yaml@main
+    with:
+      setup-commands: sudo snap install astral-uv --classic --channel latest/stable
